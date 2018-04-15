@@ -1,6 +1,7 @@
 import React from "react";
 import * as BooksAPI from "./BooksAPI";
 import "./App.css";
+import ListBooks from "./ListBooks";
 
 class BooksApp extends React.Component {
   state = {
@@ -16,13 +17,14 @@ class BooksApp extends React.Component {
   componentDidMount() {
     BooksAPI.getAll().then(books => {
       this.setState({ books });
-      console.log(this.state);
+      // console.log(this.state);
     });
   }
 
   render() {
     return (
       <div className="app">
+        <ListBooks books={this.state.books} />
         {this.state.showSearchPage ? (
           <div className="search-books">
             <div className="search-books-bar">
