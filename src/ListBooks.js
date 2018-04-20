@@ -26,7 +26,11 @@ class ListBooks extends Component {
                           }}
                         />
                         <div className="book-shelf-changer">
-                          <select>
+                          <select
+                            onClick={() =>
+                              this.props.onMoveBook(book, "readkk")
+                            }
+                          >
                             <option value="none" disabled>
                               Move to...
                             </option>

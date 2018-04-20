@@ -22,10 +22,17 @@ class BooksApp extends React.Component {
     });
   }
 
+  moveBook = (book, clickedCategory) => {
+    this.setState(book => {
+      book.shelf = clickedCategory;
+    });
+    console.log(book.shelf);
+  };
+
   render() {
     return (
       <div className="app">
-        <ListBooks books={this.state.books} />
+        <ListBooks books={this.state.books} onMoveBook={this.moveBook} />
         {this.state.showSearchPage ? (
           <div className="search-books">
             <div className="search-books-bar">
