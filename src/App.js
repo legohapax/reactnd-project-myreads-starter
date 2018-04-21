@@ -23,10 +23,19 @@ class BooksApp extends React.Component {
   }
 
   moveBook = (book, clickedCategory) => {
-    this.setState(book => {
-      book.shelf = clickedCategory;
-    });
-    console.log(book.shelf);
+    var updated_books = [...this.state.books];
+    //console.log(clickedCategory);
+    //console.log(updated_books);
+    for (var tmp_book of updated_books) {
+      //console.log(tmp_book);
+      //console.log(book.id);
+      if (tmp_book.id === book.id) {
+        //console.log(tmp_book.id);
+        tmp_book.shelf = clickedCategory;
+      }
+    }
+
+    this.setState({ books: updated_books });
   };
 
   render() {

@@ -27,9 +27,9 @@ class ListBooks extends Component {
                         />
                         <div className="book-shelf-changer">
                           <select
-                            onClick={() =>
-                              this.props.onMoveBook(book, "readkk")
-                            }
+                            onChange={e => {
+                              this.props.onMoveBook(book, e.target.value);
+                            }}
                           >
                             <option value="none" disabled>
                               Move to...
@@ -77,14 +77,20 @@ class ListBooks extends Component {
                           }}
                         />
                         <div className="book-shelf-changer">
-                          <select>
+                          <select
+                            onChange={e => {
+                              this.props.onMoveBook(book, e.target.value);
+                            }}
+                          >
                             <option value="none" disabled>
                               Move to...
                             </option>
-                            <option value="currentlyReading">
+                            <option key={book.id} value="currentlyReading">
                               Currently Reading
                             </option>
-                            <option value="wantToRead">Want to Read</option>
+                            <option selected="selected" value="wantToRead">
+                              Want to Read
+                            </option>
                             <option value="read">Read</option>
                             <option value="none">None</option>
                           </select>
@@ -124,7 +130,11 @@ class ListBooks extends Component {
                           }}
                         />
                         <div className="book-shelf-changer">
-                          <select>
+                          <select
+                            onChange={e => {
+                              this.props.onMoveBook(book, e.target.value);
+                            }}
+                          >
                             <option value="none" disabled>
                               Move to...
                             </option>
