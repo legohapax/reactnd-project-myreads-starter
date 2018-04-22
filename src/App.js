@@ -76,7 +76,7 @@ class BooksApp extends React.Component {
               <div>
                 <ListBooks
                   books={this.state.books}
-                  OnMoveBook={this.moveBook}
+                  onMoveBook={this.moveBook}
                 />
               </div>
             </div>

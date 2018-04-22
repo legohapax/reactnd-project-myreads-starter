@@ -22,7 +22,7 @@ class ListBooks extends Component {
             onShelfChange={() => {
               this.changeShelf();
             }}
-            onMoveBook={this.onMoveBook}
+            onMoveBook={this.props.onMoveBook}
           />
         ))}
       </div>
