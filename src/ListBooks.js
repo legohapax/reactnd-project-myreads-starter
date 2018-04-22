@@ -10,8 +10,7 @@ class ListBooks extends Component {
       wantToRead: ["Want to Read", "wantToRead"],
       read: ["Read", "read"]
     };
-    var x = this.onMoveBook;
-    console.log(x);
+
     return (
       <div className="list-books-content">
         {Object.keys(shelves).map(shelf => (
@@ -23,7 +22,7 @@ class ListBooks extends Component {
             onShelfChange={() => {
               this.changeShelf();
             }}
-            onMoveBook={this.moveBook}
+            onMoveBook={this.onMoveBook}
           />
         ))}
       </div>
