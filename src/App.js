@@ -32,6 +32,8 @@ class BooksApp extends React.Component {
     for (var tmp_book of updated_books) {
       if (tmp_book.id === book.id) {
         tmp_book.shelf = clickedCategory;
+      } else {
+        updated_books.push(book);
       }
     }
 
