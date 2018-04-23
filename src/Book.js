@@ -20,6 +20,7 @@ class Book extends Component {
               <select
                 onChange={e => {
                   this.props.onMoveBook(this.props.book, e.target.value);
+                  console.log("ahoj");
                 }}
               >
                 <option value="none" disabled>
