@@ -54,6 +54,7 @@ class BooksApp extends React.Component {
                 onSetShowSearchPageToFalse={this.setShowSearchPageToFalse}
                 onMoveBook={this.moveBook}
                 onAddBook={() => history.push("/")}
+                booksInLibrary={this.state.books}
               />
             )}
           />

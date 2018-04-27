@@ -120,12 +120,23 @@ class AddBook extends Component {
               value={this.state.query}
               onChange={event => {
                 this.updateQuery(event.target.value);
-                //Přidat if na omezení ptaní se jenom na slova která jsou povolená
+               
                 if (this.searchTerms.includes(event.target.value)) {
                   console.log("ahoj");
                   BooksAPI.search(this.state.query).then(books => {
+                    for (let searchedBook of books) {
+                      //ensures that all newly searched books are in a none shelf
+                      for (let libraryBook of this.props.booksInLibrary) {
+                      //ensures that books already in the library are on a correct shelf on search page
+                        if(libraryBook.id === searchedBook.id){
+                          searchedBook["shelf"] = libraryBook.shelf
+                        } else {
+                          searchedBook["shelf"] = "none"
+                        }
+                      }
+                    }
                     this.setState({ searchBooks: books });
-                    console.log(this.state.searchBooks);
+                    console.log(this.state);
                   });
                 } else {
                   this.setState({ searchBooks: [] });
@@ -140,6 +151,7 @@ class AddBook extends Component {
               <Book
                 key={book.id}
                 book={book}
+                shelf={"none"}
                 onMoveBook={this.props.onMoveBook}
               />
             ))}
