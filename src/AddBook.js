@@ -92,7 +92,7 @@ class AddBook extends Component {
   };
 
   updateQuery = query => {
-    this.setState(() => ({ query: query.trim() }));
+    this.setState(() => ({ query: query }));
   };
   render() {
     return (
@@ -122,7 +122,7 @@ class AddBook extends Component {
                 this.updateQuery(event.target.value);
                
                 if (this.searchTerms.includes(event.target.value)) {
-                  console.log("ahoj");
+                  
                   BooksAPI.search(this.state.query).then(books => {
                     for (let searchedBook of books) {
                       //ensures that all newly searched books are in a none shelf
@@ -136,7 +136,7 @@ class AddBook extends Component {
                       }
                     }
                     this.setState({ searchBooks: books });
-                    console.log(this.state);
+                    console.log(this.state.searchBooks);
                   });
                 } else {
                   this.setState({ searchBooks: [] });
