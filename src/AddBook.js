@@ -151,7 +151,7 @@ class AddBook extends Component {
               <Book
                 key={book.id}
                 book={book}
-                shelf={"none"}
+                shelf={book.shelf}
                 onMoveBook={this.props.onMoveBook}
               />
             ))}
