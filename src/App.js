@@ -43,6 +43,7 @@ class BooksApp extends React.Component {
     }
 
     this.setState({ books: updated_books });
+    BooksAPI.update(book, book.shelf)
   };
 
   setShowSearchPageToFalse = () => this.setState({ showSearchPage: false });
