@@ -16,8 +16,11 @@ class AddBook extends Component {
   };
   render() {
     return (
+      
       <div className="search-books">
+      
         <div className="search-books-bar">
+        {JSON.stringify(this.state.query)}
           <Link
             to="/"
             className="close-search"
@@ -39,39 +42,41 @@ class AddBook extends Component {
               placeholder="Search by title or author"
               value={this.state.query}
               onChange={event => {
-                console.log("event " + event.target.value)
+                //console.log("event " + event.target.value)
                 this.updateQuery(event.target.value)
-                console.log("state " + this.state.query)
+                //console.log("state " + this.state.query)
                 
                 //console.log(this.state.searchBooks)
                 
-                if (this.state.query === "") {
-                  // if the query is empty, there should be no displayed books
-                  this.setState({ searchBooks: [] })
-                } else {
-                BooksAPI.search(this.state.query).then(books => {
-                  
-                  if ( !(books === undefined) || !(books === []) ) {
-                    // tests if API has returned data or an error
+                if (!(event.target.value === "")) {
+                  BooksAPI.search(event.target.value).then(books => {
+                    console.log(books)
+                    if (books.error === "empty query") {
+                      //console.log("fire")
                       
-                    for (let searchedBook of books) {
-                      //ensures that all newly searched books are in a none shelf
-                      for (let libraryBook of this.props.booksInLibrary) {
-                      //ensures that books already in the library are on a correct shelf on search page
-                        if (libraryBook.id === searchedBook.id) {
-                          searchedBook["shelf"] = libraryBook.shelf
-                          break
-                        } else {
-                          searchedBook["shelf"] = "none"
+                      this.setState({ searchBooks: [] })
+                    }
+                    else if ( !(books === undefined) ) {
+                      // tests if API has returned data or an error
+                      delete books.error  
+                      for (let searchedBook of books) {
+                        //ensures that all newly searched books are in a none shelf
+                        for (let libraryBook of this.props.booksInLibrary) {
+                        //ensures that books already in the library are on a correct shelf on search page
+                          if (libraryBook.id === searchedBook.id) {
+                            searchedBook["shelf"] = libraryBook.shelf
+                            break
+                          } else {
+                            searchedBook["shelf"] = "none"
+                          }
                         }
                       }
-                    }
-                    this.setState({ searchBooks: books });
-                    //console.log(this.state.searchBooks);
-                  } else {
-                    this.setState({ searchBooks: [] })
-                    } 
-                }); 
+                      this.setState({ searchBooks: books });
+                      //console.log(this.state.searchBooks);
+                    }  
+                  }); 
+              } else {
+                this.setState({ searchBooks: [] });
               }
                
                 
