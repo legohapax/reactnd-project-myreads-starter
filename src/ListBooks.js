@@ -4,8 +4,6 @@ import { Link } from "react-router-dom";
 
 class ListBooks extends Component {
   render() {
-    console.log(this.props.books);
-
     const shelves = {
       currentlyReading: ["Currently Reading", "currentlyReading"],
       wantToRead: ["Want to Read", "wantToRead"],

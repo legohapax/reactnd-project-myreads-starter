@@ -20,7 +20,6 @@ class AddBook extends Component {
       <div className="search-books">
       
         <div className="search-books-bar">
-        {JSON.stringify(this.state.query)}
           <Link
             to="/"
             className="close-search"
@@ -42,23 +41,18 @@ class AddBook extends Component {
               placeholder="Search by title or author"
               value={this.state.query}
               onChange={event => {
-                //console.log("event " + event.target.value)
+                //get triggered after each key press
                 this.updateQuery(event.target.value)
-                //console.log("state " + this.state.query)
-                
-                //console.log(this.state.searchBooks)
-                
+
                 if (!(event.target.value === "")) {
+                  //API -search method call
                   BooksAPI.search(event.target.value).then(books => {
-                    console.log(books)
+                    
                     if (books.error === "empty query") {
-                      //console.log("fire")
-                      
                       this.setState({ searchBooks: [] })
                     }
                     else if ( !(books === undefined) ) {
                       // tests if API has returned data or an error
-                      delete books.error  
                       for (let searchedBook of books) {
                         //ensures that all newly searched books are in a none shelf
                         for (let libraryBook of this.props.booksInLibrary) {
@@ -72,7 +66,6 @@ class AddBook extends Component {
                         }
                       }
                       this.setState({ searchBooks: books });
-                      //console.log(this.state.searchBooks);
                     }  
                   }); 
               } else {

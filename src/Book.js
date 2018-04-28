@@ -22,8 +22,6 @@ class Book extends Component {
                 value={this.props.book.shelf}
                 onChange={e => {
                   this.props.onMoveBook(this.props.book, e.target.value);
-                  
-                  console.log(this.props.book.shelf);
                 }}
               >
                 <option value="moveTo" disabled>
