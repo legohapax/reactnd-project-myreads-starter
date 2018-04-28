@@ -4,87 +4,6 @@ import * as BooksAPI from "./BooksAPI";
 import Book from "./Book";
 
 class AddBook extends Component {
-  searchTerms = [
-    "Android",
-    "Art",
-    "Artificial Intelligence",
-    "Astronomy",
-    "Austen",
-    "Baseball",
-    "Basketball",
-    "Bhagat",
-    "Biography",
-    "Brief",
-    "Business",
-    "Camus",
-    "Cervantes",
-    "Christie",
-    "Classics",
-    "Comics",
-    "Cook",
-    "Cricket",
-    "Cycling",
-    "Desai",
-    "Design",
-    "Development",
-    "Digital Marketing",
-    "Drama",
-    "Drawing",
-    "Dumas",
-    "Education",
-    "Everything",
-    "Fantasy",
-    "Film",
-    "Finance",
-    "First",
-    "Fitness",
-    "Football",
-    "Future",
-    "Games",
-    "Gandhi",
-    "Homer",
-    "Horror",
-    "Hugo",
-    "Ibsen",
-    "Journey",
-    "Kafka",
-    "King",
-    "Lahiri",
-    "Larsson",
-    "Learn",
-    "Literary Fiction",
-    "Make",
-    "Manage",
-    "Marquez",
-    "Money",
-    "Mystery",
-    "Negotiate",
-    "Painting",
-    "Philosophy",
-    "Photography",
-    "Poetry",
-    "Production",
-    "Programming",
-    "React",
-    "Redux",
-    "River",
-    "Robotics",
-    "Rowling",
-    "Satire",
-    "Science Fiction",
-    "Shakespeare",
-    "Singh",
-    "Swimming",
-    "Tale",
-    "Thrun",
-    "Time",
-    "Tolstoy",
-    "Travel",
-    "Ultimate",
-    "Virtual Reality",
-    "Web Development",
-    "iOS"
-  ];
 
   state = {
     query: "",
@@ -93,6 +12,7 @@ class AddBook extends Component {
 
   updateQuery = query => {
     this.setState(() => ({ query: query }));
+    
   };
   render() {
     return (
@@ -119,28 +39,42 @@ class AddBook extends Component {
               placeholder="Search by title or author"
               value={this.state.query}
               onChange={event => {
-                this.updateQuery(event.target.value);
-               
-                if (this.searchTerms.includes(event.target.value)) {
+                console.log("event " + event.target.value)
+                this.updateQuery(event.target.value)
+                console.log("state " + this.state.query)
+                
+                //console.log(this.state.searchBooks)
+                
+                if (this.state.query === "") {
+                  // if the query is empty, there should be no displayed books
+                  this.setState({ searchBooks: [] })
+                } else {
+                BooksAPI.search(this.state.query).then(books => {
                   
-                  BooksAPI.search(this.state.query).then(books => {
+                  if ( !(books === undefined) || !(books === []) ) {
+                    // tests if API has returned data or an error
+                      
                     for (let searchedBook of books) {
                       //ensures that all newly searched books are in a none shelf
                       for (let libraryBook of this.props.booksInLibrary) {
                       //ensures that books already in the library are on a correct shelf on search page
-                        if(libraryBook.id === searchedBook.id){
+                        if (libraryBook.id === searchedBook.id) {
                           searchedBook["shelf"] = libraryBook.shelf
+                          break
                         } else {
                           searchedBook["shelf"] = "none"
                         }
                       }
                     }
                     this.setState({ searchBooks: books });
-                    console.log(this.state.searchBooks);
-                  });
-                } else {
-                  this.setState({ searchBooks: [] });
-                }
+                    //console.log(this.state.searchBooks);
+                  } else {
+                    this.setState({ searchBooks: [] })
+                    } 
+                }); 
+              }
+               
+                
               }}
             />
           </div>

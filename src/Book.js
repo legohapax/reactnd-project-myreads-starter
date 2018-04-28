@@ -6,7 +6,7 @@ class Book extends Component {
       <li key={this.props.book.id}>
         <div className="book">
           <div className="book-top">
-            <div
+            {this.props.book.imageLinks && <div
               className="book-cover"
               style={{
                 width: 128,
@@ -15,7 +15,8 @@ class Book extends Component {
                   this.props.book.imageLinks.smallThumbnail
                 }")`
               }}
-            />
+            /> }
+            
             <div className="book-shelf-changer">
               <select
                 value={this.props.book.shelf}
@@ -36,7 +37,7 @@ class Book extends Component {
             </div>
           </div>
           <div className="book-title">{this.props.book.title}</div>
-          {this.props.book.authors.map(author => (
+          {this.props.book.authors && this.props.book.authors.map(author => (
             <div className="book-authors" key={author}>
               {author}
             </div>
