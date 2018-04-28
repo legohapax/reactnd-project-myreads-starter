@@ -25,7 +25,7 @@ class Book extends Component {
                   console.log(this.props.book.shelf);
                 }}
               >
-                <option value="none" disabled>
+                <option value="moveTo" disabled>
                   Move to...
                 </option>
                 <option value="currentlyReading">Currently Reading</option>

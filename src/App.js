@@ -52,7 +52,6 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-        {this.state.showSearchPage ? (
           <Route
             path="/search"
             render={({ history }) => (
@@ -64,7 +63,7 @@ class BooksApp extends React.Component {
               />
             )}
           />
-        ) : (
+         
           <Route
             exact
             path="/"
@@ -76,7 +75,7 @@ class BooksApp extends React.Component {
               />
             )}
           />
-        )}
+        
       </div>
     );
   }
